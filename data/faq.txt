@@ -1,0 +1,29 @@
+Q: What is this project?
+A: This project is a tool-using AI agent built with LangGraph and LangChain. It can answer questions, do calculations, check the current date and time, search the web, and look up information in a local knowledge base. It runs as a command-line tool or as a FastAPI web service.
+
+Q: What tools does the agent have?
+A: The agent has four tools: calculator for arithmetic, current_datetime for the date and time in any timezone, web_search for DuckDuckGo web searches (free, no API key needed), and knowledge_lookup for searching the bundled FAQ knowledge base in data/faq.txt.
+
+Q: How do I run the agent from the command line?
+A: Install the dependencies with pip install -r requirements.txt, copy .env.example to .env and set your OPENAI_API_KEY, then run: python -m app.cli "your question here". Add --interactive for a multi-turn session.
+
+Q: How do I run the API server?
+A: Run uvicorn app.server:app --port 8000 and then send POST requests to http://localhost:8000/chat with a JSON body containing session_id and message. Interactive API docs are available at http://localhost:8000/docs.
+
+Q: Which LLM providers are supported?
+A: Any provider with an OpenAI-compatible API works. Set OPENAI_API_KEY for the key, OPENAI_BASE_URL for a custom endpoint, and LLM_MODEL for the model name. The defaults target OpenAI with gpt-4o-mini.
+
+Q: How does conversation memory work?
+A: Each conversation is identified by a session_id. The graph uses an in-memory checkpointer, so messages are remembered per session while the server process is running. Restarting the server clears all sessions.
+
+Q: How can I add a new tool?
+A: Write a function in app/tools.py, decorate it with @tool from langchain_core.tools, give it a clear docstring, and add it to the TOOLS list. The graph binds every tool in TOOLS to the model automatically, so no other changes are needed.
+
+Q: How is the calculator implemented?
+A: The calculator parses the expression into an abstract syntax tree and evaluates only whitelisted operators, constants (pi, e, tau) and math functions (sqrt, log, sin, cos and similar). It never uses Python eval, so arbitrary code cannot be executed through it.
+
+Q: What is the license of this project?
+A: This project is released under the MIT License. You are free to use, copy, modify and distribute it, provided the copyright notice is kept.
+
+Q: How do I extend the knowledge base?
+A: Edit data/faq.txt and add entries in the same format: a line starting with Q: followed by a line starting with A:, with a blank line between entries. The knowledge_lookup tool searches the questions by keyword overlap.

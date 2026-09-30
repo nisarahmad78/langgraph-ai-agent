@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LangGraph AI Agent</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar: brand, status, tools, session -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">LG</div>
+        <div>
+          <h1>LangGraph AI Agent</h1>
+          <p class="brand-sub">Tool-using agent, live in your browser</p>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span id="status-dot" class="status-dot status-unknown"></span>
+        <span id="status-text" class="status-text">Checking server…</span>
+      </div>
+
+      <section class="panel">
+        <h2>Agent tools</h2>
+        <p class="panel-hint">The agent picks these on its own when a question needs them.</p>
+        <ul id="tools-list" class="tools-list">
+          <li class="tools-loading">Loading tools…</li>
+        </ul>
+      </section>
+
+      <section class="panel session-panel">
+        <h2>Session</h2>
+        <p class="panel-hint">History is kept per session on the server.</p>
+        <code id="session-id" class="session-id">…</code>
+        <button id="new-chat-btn" class="btn btn-secondary" type="button">+ New chat</button>
+      </section>
+
+      <p class="sidebar-foot">FastAPI · LangGraph · LangChain</p>
+    </aside>
+
+    <!-- Main chat column -->
+    <main class="chat">
+      <div id="messages" class="messages" aria-live="polite"></div>
+
+      <div id="error-banner" class="error-banner" hidden></div>
+
+      <form id="composer" class="composer">
+        <textarea
+          id="message-input"
+          rows="1"
+          placeholder="Ask something… try “What is 15% of 240?”"
+          aria-label="Message"
+        ></textarea>
+        <button id="send-btn" class="btn btn-primary" type="submit">Send</button>
+      </form>
+      <p class="composer-hint">Enter to send · Shift + Enter for a new line</p>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
