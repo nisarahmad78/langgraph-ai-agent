@@ -2,6 +2,12 @@
 
 A tool-using AI agent built with **LangGraph** and **LangChain**. The agent reasons about each question, decides which tools it needs, calls them, and uses the results to compose a final answer. It runs in three modes: a **browser chat UI**, a **command-line chat**, and a **FastAPI web service** with per-session conversation memory.
 
+## Screenshots
+
+![LangGraph AI Agent UI](docs/screenshot.png)
+
+The browser chat UI: the sidebar lists the agent's tools (calculator, current datetime, web search, knowledge lookup) and the current session, while the main panel shows the welcome message with clickable example questions.
+
 ## Features
 
 - **ReAct-style agent graph** built with LangGraph — model node, tool node, conditional routing
